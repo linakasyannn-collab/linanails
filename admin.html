@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Адмінка — Lina Kasian Nails</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a0a;--deep:#0e0e0e;--card:#161616;--card2:#1a1a1a;--card3:#1e1e1e;
+    --gold:#c9a96e;--gold-d:#8a6d3b;--gold-dim:rgba(201,169,110,0.1);
+    --white:#f5f0e8;--dim:rgba(245,240,232,0.55);--dim2:rgba(245,240,232,0.22);
+    --border:rgba(201,169,110,0.16);--border2:rgba(245,240,232,0.06);
+    --red:#d05a5a;--green:#5a9e6e;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--black);color:var(--white);font-family:'Raleway',sans-serif;font-weight:300;min-height:100vh;}
+
+  /* LOGIN */
+  #login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse 60% 70% at 50% 50%,rgba(201,169,110,0.04) 0%,transparent 70%);}
+  .lbox{width:320px;background:var(--card);border:1px solid var(--border);padding:44px 32px;text-align:center;}
+  .llogo{font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.3em;color:var(--gold);margin-bottom:4px;}
+  .lsub{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--dim);margin-bottom:32px;}
+  .lbox input{width:100%;padding:12px 14px;background:var(--deep);border:1px solid var(--border);color:var(--white);font-family:'Raleway',sans-serif;font-size:14px;outline:none;margin-bottom:10px;transition:border-color .3s;}
+  .lbox input:focus{border-color:var(--gold);}
+  .lbox input::placeholder{color:var(--dim2);}
+  .lbtn{width:100%;padding:12px;background:var(--gold);border:none;color:var(--black);font-family:'Raleway',sans-serif;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;cursor:pointer;transition:background .3s;}
+  .lbtn:hover{background:var(--gold-d);color:var(--white);}
+  .lerr{color:var(--red);font-size:11px;margin-top:10px;min-height:16px;}
+
+  /* APP */
+  #app{display:none;flex-direction:column;min-height:100vh;}
+  .topbar{height:52px;background:var(--deep);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;flex-shrink:0;}
+  .tlogo{font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.25em;color:var(--gold);}
+  .tout{background:none;border:1px solid var(--border);color:var(--dim);padding:5px 14px;font-family:'Raleway',sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:all .3s;}
+  .tout:hover{border-color:var(--gold);color:var(--gold);}
+
+  /* TABS NAV */
+  .topnav{background:var(--deep);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;flex-shrink:0;}
+  .tnav-btn{display:flex;align-items:center;gap:8px;padding:14px 24px;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:'Raleway',sans-serif;white-space:nowrap;transition:all .25s;}
+  .tnav-btn:hover{color:var(--white);}
+  .tnav-btn.on{color:var(--gold);border-bottom-color:var(--gold);}
+
+  /* PANELS */
+  .main{padding:24px;flex:1;}
+  .panel{display:none;}
+  .panel.on{display:block;}
+  .pg-title{font-family:'Cinzel',serif;font-size:17px;letter-spacing:0.2em;color:var(--gold);margin-bottom:4px;}
+  .pg-sub{font-size:11px;color:var(--dim);margin-bottom:22px;}
+
+  /* CARD */
+  .card{background:var(--card);border:1px solid var(--border);padding:20px;margin-bottom:12px;}
+  .card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .clabel{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);}
+
+  /* FORM */
+  .row{display:grid;gap:12px;margin-bottom:12px;}
+  .r1{grid-template-columns:1fr;}
+  .r2{grid-template-columns:1fr 1fr;}
+  .r3{grid-template-columns:2fr 1fr 1fr;}
+  .fg{display:flex;flex-direction:column;gap:4px;}
+  label{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim);}
+  input[type=text],input[type=password],input[type=tel],select,textarea{
+    padding:8px 12px;background:var(--deep);border:1px solid var(--border);
+    color:var(--white);font-family:'Raleway',sans-serif;font-size:12px;
+    outline:none;transition:border-color .3s;width:100%;
+  }
+  input:focus,select:focus,textarea:focus{border-color:var(--gold);}
+  input::placeholder{color:var(--dim2);}
+  select option{background:var(--deep);}
+
+  /* BUTTONS */
+  .btn{padding:8px 18px;font-family:'Raleway',sans-serif;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;cursor:pointer;transition:all .3s;border:1px solid var(--border);background:transparent;color:var(--dim);}
+  .btn:hover{border-color:var(--gold);color:var(--gold);}
+  .btn-g{border-color:var(--gold);color:var(--gold);}
+  .btn-g:hover{background:var(--gold);color:var(--black);}
+  .btn-gold{background:var(--gold);border-color:var(--gold);color:var(--black);}
+  .btn-gold:hover{background:var(--gold-d);color:var(--white);}
+  .btn-r{border-color:rgba(208,90,90,0.3);color:var(--red);}
+  .btn-r:hover{background:var(--red);border-color:var(--red);color:var(--white);}
+  .btn-sm{padding:5px 12px;font-size:9px;}
+  .iBtn{background:none;border:none;cursor:pointer;padding:4px 7px;color:var(--dim);font-size:13px;transition:color .2s;line-height:1;}
+  .iBtn:hover{color:var(--gold);}
+  .iBtn.r:hover{color:var(--red);}
+
+  /* TOGGLE */
+  .tog{position:relative;width:36px;height:19px;flex-shrink:0;}
+  .tog input{opacity:0;width:0;height:0;}
+  .tsl{position:absolute;cursor:pointer;inset:0;background:var(--deep);border:1px solid var(--border);border-radius:19px;transition:.3s;}
+  .tsl::before{content:'';position:absolute;height:11px;width:11px;left:3px;bottom:3px;background:var(--dim);border-radius:50%;transition:.3s;}
+  input:checked+.tsl{background:var(--gold-dim);border-color:var(--gold);}
+  input:checked+.tsl::before{transform:translateX(17px);background:var(--gold);}
+
+  /* SERVICES */
+  .cat-block{margin-bottom:22px;}
+  .cat-hd{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+  .cat-nm{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+  .cat-ct{font-size:10px;color:var(--dim);}
+  .svc-row{display:grid;grid-template-columns:1fr 110px 38px 70px;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--border2);}
+  .svc-row:last-child{border-bottom:none;}
+  .svc-name{font-size:13px;}
+  .svc-name small{display:block;font-size:10px;color:var(--dim);margin-top:1px;}
+  .svc-price{font-size:15px;color:var(--gold);font-family:'Georgia',serif;}
+  .svc-price em{font-size:10px;color:var(--gold-d);font-style:normal;margin-left:1px;}
+
+  /* PORTFOLIO */
+  .pf-wrap{display:grid;grid-template-columns:210px 1fr;gap:14px;min-height:500px;}
+  .fl-list{display:flex;flex-direction:column;gap:2px;}
+  .fl-item{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--card2);border:1px solid transparent;cursor:pointer;transition:all .2s;position:relative;}
+  .fl-item:hover{border-color:var(--border);}
+  .fl-item.on{border-color:var(--gold);background:var(--card3);}
+  .fl-ico{font-size:16px;flex-shrink:0;}
+  .fl-info{flex:1;min-width:0;}
+  .fl-name{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .fl-cnt{font-size:10px;color:var(--dim);margin-top:1px;}
+  .fl-acts{display:flex;gap:2px;opacity:0;transition:opacity .2s;}
+  .fl-item:hover .fl-acts,.fl-item.on .fl-acts{opacity:1;}
+  .fl-add{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;border:1px dashed var(--border);cursor:pointer;transition:all .2s;color:var(--dim);font-size:11px;background:none;width:100%;font-family:'Raleway',sans-serif;margin-top:4px;}
+  .fl-add:hover{border-color:var(--gold);color:var(--gold);}
+  .fc{background:var(--card);border:1px solid var(--border);padding:18px;display:flex;flex-direction:column;gap:14px;}
+  .fc-head{display:flex;align-items:flex-start;justify-content:space-between;}
+  .fc-title{font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.18em;color:var(--gold);}
+  .fc-sub{font-size:10px;color:var(--dim);margin-top:2px;}
+  .fc-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:40px;color:var(--dim);font-size:12px;text-align:center;gap:8px;}
+  .fc-empty-ico{font-size:32px;opacity:0.2;}
+
+  .upzone{border:1px dashed var(--border);padding:22px;text-align:center;cursor:pointer;background:var(--deep);transition:all .3s;}
+  .upzone:hover,.upzone.over{border-color:var(--gold);background:rgba(201,169,110,0.02);}
+  .upzone-ico{font-size:22px;margin-bottom:6px;}
+  .upzone-txt{font-size:11px;color:var(--dim);}
+  .upzone-sub{font-size:10px;color:var(--dim2);margin-top:2px;}
+
+  .ph-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:5px;}
+  .ph-tile{background:var(--card2);border:1px solid var(--border2);position:relative;overflow:hidden;}
+  .ph-tile img{width:100%;aspect-ratio:1;object-fit:cover;display:block;}
+  .ph-bar{padding:5px 6px;display:flex;align-items:center;justify-content:space-between;gap:3px;}
+  .ph-nm{font-size:9px;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;}
+  .ph-acts{display:flex;align-items:center;gap:1px;flex-shrink:0;}
+  .ph-hidden{position:absolute;inset:0;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;font-size:14px;pointer-events:none;}
+  .ph-star{position:absolute;top:4px;left:4px;background:var(--gold);color:var(--black);font-size:8px;padding:2px 4px;letter-spacing:0.1em;}
+
+  .upform{background:var(--deep);border:1px solid var(--border);padding:14px;margin-bottom:4px;}
+  .uprow{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .uprow img{width:44px;height:44px;object-fit:cover;border:1px solid var(--border);}
+
+  /* CONTACTS */
+  .contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .cblock{background:var(--card2);border:1px solid var(--border);padding:16px;}
+  .cblock-ico{font-size:22px;margin-bottom:8px;}
+  .cblock-label{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  .save-row{display:flex;justify-content:flex-end;margin-top:8px;}
+  .contacts-preview{background:var(--deep);border:1px solid var(--border);padding:18px;margin-top:14px;}
+  .preview-label{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--dim);margin-bottom:12px;}
+  .prev-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+  .prev-card{background:var(--card);border:1px solid var(--border);padding:16px 12px;text-align:center;}
+  .prev-ico{font-size:20px;margin-bottom:8px;}
+  .prev-type{font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+  .prev-val{font-family:'Cormorant Garamond',serif;font-size:13px;}
+
+  /* MODAL */
+  .mbg{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:300;display:none;align-items:center;justify-content:center;}
+  .mbg.open{display:flex;}
+  .modal{background:var(--card);border:1px solid var(--border);padding:26px;width:420px;max-width:95vw;}
+  .mtitle{font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.2em;color:var(--gold);margin-bottom:20px;}
+  .mfoot{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;padding-top:16px;border-top:1px solid var(--border);}
+
+  /* TOAST */
+  #toast{position:fixed;bottom:22px;right:22px;z-index:999;padding:10px 18px;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;border-left:3px solid var(--gold);background:var(--card);opacity:0;transform:translateY(8px);transition:all .35s;pointer-events:none;max-width:300px;}
+  #toast.show{opacity:1;transform:translateY(0);}
+  #toast.err{border-left-color:var(--red);}
+
+  .spin{display:inline-block;width:12px;height:12px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:sp .7s linear infinite;vertical-align:middle;margin-right:5px;}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .empty-st{text-align:center;padding:32px;color:var(--dim);font-size:11px;}
+
+  @media(max-width:800px){
+    .main{padding:14px;}
+    .pf-wrap{grid-template-columns:1fr;}
+    .contacts-grid{grid-template-columns:1fr;}
+    .prev-cards{grid-template-columns:1fr;}
+    .r3{grid-template-columns:1fr 1fr;}
+    .svc-row{grid-template-columns:1fr 90px 36px 60px;}
+  }
+</style>
+</head>
+<body>
+
+<script>
+  const SUPABASE_URL = 'https://txgdqosvllnmodryskwz.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR4Z2Rxb3N2bGxubW9kcnlza3d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE1MTUwMzYsImV4cCI6MjA4NzA5MTAzNn0.W93DMuMCHkC0_iZxH-pT82qLvTawk_05_Q4QSVgVOVA';
+  const ADMIN_PASS = '7777';
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);</script>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="lbox">
+    <div class="llogo">LK NAILS</div>
+    <div class="lsub">Панель управління</div>
+    <input type="password" id="pwd" placeholder="Пароль" autocomplete="current-password">
+    <button class="lbtn" onclick="doLogin()">Увійти</button>
+    <div class="lerr" id="lerr"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" style="display:none;flex-direction:column;min-height:100vh;">
+  <div class="topbar">
+    <div class="tlogo">LK NAILS — Адмінка</div>
+    <button class="tout" onclick="doLogout()">Вийти</button>
+  </div>
+  <div class="topnav">
+    <button class="tnav-btn on" onclick="goPanel('services',this)">✦&nbsp; Послуги & Ціни</button>
+    <button class="tnav-btn" onclick="goPanel('portfolio',this)">📷&nbsp; Портфоліо</button>
+    <button class="tnav-btn" onclick="goPanel('contacts',this)">📬&nbsp; Контакти</button>
+  </div>
+  <div class="main">
+
+    <!-- ══ SERVICES ══ -->
+    <div class="panel on" id="p-services">
+      <div class="pg-title">Послуги & Ціни</div>
+      <div class="pg-sub">Додавай, редагуй та видаляй послуги. Зміни одразу видно на сайті.</div>
+      <div class="card">
+        <div class="card-head"><div class="clabel">Нова послуга</div></div>
+        <div class="row r3">
+          <div class="fg"><label>Назва</label><input type="text" id="s-name" placeholder="Гель-лак (без дизайну)"></div>
+          <div class="fg">
+            <label>Категорія</label>
+            <select id="s-cat" onchange="onCatChange()">
+              <option>Манікюр</option><option>Покриття</option>
+              <option>Нарощування</option><option>Дизайн</option>
+              <option>Педикюр</option><option value="__new__">+ Нова...</option>
+            </select>
+          </div>
+          <div class="fg"><label>Ціна (грн)</label><input type="text" id="s-price" placeholder="350"></div>
+        </div>
+        <div id="newcat-row" style="display:none;" class="row r1">
+          <div class="fg"><label>Назва нової категорії</label><input type="text" id="s-newcat" placeholder="SPA-манікюр"></div>
+        </div>
+        <div class="row r2">
+          <div class="fg"><label>Опис (необов'язково)</label><input type="text" id="s-desc" placeholder="Один колір, будь-який відтінок"></div>
+          <div class="fg" style="justify-content:flex-end"><label>&nbsp;</label><button class="btn btn-g" onclick="addSvc()">+ Додати</button></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="clabel">Всі послуги</div><span id="svc-cnt" style="font-size:10px;color:var(--dim)"></span></div>
+        <div id="svc-list"><div class="empty-st"><span class="spin"></span></div></div>
+      </div>
+    </div>
+
+    <!-- ══ PORTFOLIO ══ -->
+    <div class="panel" id="p-portfolio">
+      <div class="pg-title">Портфоліо</div>
+      <div class="pg-sub">Папки = вкладки на сайті. Додавай папки та завантажуй фото в кожну.</div>
+      <div class="pf-wrap">
+        <div>
+          <div class="fl-list" id="fl-list"><div class="empty-st"><span class="spin"></span></div></div>
+          <button class="fl-add" onclick="createFolder()">＋ &nbsp;Нова папка</button>
+        </div>
+        <div class="fc" id="fc">
+          <div class="fc-empty"><div class="fc-empty-ico">📁</div>Вибери папку зліва</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ CONTACTS ══ -->
+    <div class="panel" id="p-contacts">
+      <div class="pg-title">Контакти</div>
+      <div class="pg-sub">Зміни — одразу оновляться на сайті.</div>
+      <div class="contacts-grid">
+        <div class="cblock">
+          <div class="cblock-ico">✈️</div>
+          <div class="cblock-label">Telegram</div>
+          <div class="fg"><label>Нікнейм (без @)</label><input type="text" id="c-tg" placeholder="linakasian"></div>
+          <div class="save-row"><button class="btn btn-g btn-sm" onclick="saveContact('telegram','c-tg')">Зберегти</button></div>
+        </div>
+        <div class="cblock">
+          <div class="cblock-ico">📸</div>
+          <div class="cblock-label">Instagram</div>
+          <div class="fg"><label>Нікнейм (без @)</label><input type="text" id="c-ig" placeholder="linakasian_nails"></div>
+          <div class="save-row"><button class="btn btn-g btn-sm" onclick="saveContact('instagram','c-ig')">Зберегти</button></div>
+        </div>
+        <div class="cblock">
+          <div class="cblock-ico">📞</div>
+          <div class="cblock-label">Телефон</div>
+          <div class="fg"><label>Номер</label><input type="tel" id="c-phone" placeholder="+38 099 123 4567"></div>
+          <div class="save-row"><button class="btn btn-g btn-sm" onclick="saveContact('phone','c-phone')">Зберегти</button></div>
+        </div>
+        <div class="cblock">
+          <div class="cblock-ico">📍</div>
+          <div class="cblock-label">Локація</div>
+          <div class="fg"><label>Текст адреси</label><input type="text" id="c-addr" placeholder="м. Київ · Запис суворо попередньо"></div>
+          <div class="save-row"><button class="btn btn-g btn-sm" onclick="saveContact('address','c-addr')">Зберегти</button></div>
+        </div>
+      </div>
+      <div class="contacts-preview">
+        <div class="preview-label">Попередній перегляд</div>
+        <div class="prev-cards">
+          <div class="prev-card"><div class="prev-ico">✈️</div><div class="prev-type">Telegram</div><div class="prev-val" id="pv-tg">—</div></div>
+          <div class="prev-card"><div class="prev-ico">📸</div><div class="prev-type">Instagram</div><div class="prev-val" id="pv-ig">—</div></div>
+          <div class="prev-card"><div class="prev-ico">📞</div><div class="prev-type">Телефон</div><div class="prev-val" id="pv-phone">—</div></div>
+        </div>
+        <div style="text-align:center;margin-top:12px;font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--dim);font-style:italic;" id="pv-addr">—</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- EDIT SVC MODAL -->
+<div class="mbg" id="svc-modal">
+  <div class="modal">
+    <div class="mtitle">Редагувати послугу</div>
+    <input type="hidden" id="em-id">
+    <div class="row r1"><div class="fg"><label>Назва</label><input type="text" id="em-name"></div></div>
+    <div class="row r2">
+      <div class="fg"><label>Категорія</label><select id="em-cat"><option>Манікюр</option><option>Покриття</option><option>Нарощування</option><option>Дизайн</option><option>Педикюр</option></select></div>
+      <div class="fg"><label>Ціна (грн)</label><input type="text" id="em-price"></div>
+    </div>
+    <div class="row r1"><div class="fg"><label>Опис</label><input type="text" id="em-desc"></div></div>
+    <div class="mfoot">
+      <button class="btn" onclick="closeMdl('svc-modal')">Скасувати</button>
+      <button class="btn btn-gold" onclick="saveSvc()">Зберегти</button>
+    </div>
+  </div>
+</div>
+
+<!-- RENAME FOLDER MODAL -->
+<div class="mbg" id="fl-modal">
+  <div class="modal">
+    <div class="mtitle">Перейменувати папку</div>
+    <input type="hidden" id="fm-id">
+    <div class="row r1"><div class="fg"><label>Назва папки (видно на сайті)</label><input type="text" id="fm-name"></div></div>
+    <div class="mfoot">
+      <button class="btn" onclick="closeMdl('fl-modal')">Скасувати</button>
+      <button class="btn btn-gold" onclick="saveFolder()">Зберегти</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+<input type="file" id="file-inp" accept="image/*" multiple style="display:none">
+
+<script>
+// ── AUTH ──
+function doLogin(){
+  if(document.getElementById('pwd').value===ADMIN_PASS){
+    document.getElementById('login').style.display='none';
+    const app=document.getElementById('app');
+    app.style.display='flex';
+    loadSvcs(); loadFolders(); loadContacts();
+  } else {
+    document.getElementById('lerr').textContent='Невірний пароль';
+    document.getElementById('pwd').value='';
+  }
+}
+document.getElementById('pwd').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+function doLogout(){
+  document.getElementById('app').style.display='none';
+  document.getElementById('login').style.display='flex';
+  document.getElementById('pwd').value='';
+}
+
+// ── PANELS ──
+function goPanel(name,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tnav-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('p-'+name).classList.add('on');
+  el.classList.add('on');
+}
+
+// ── TOAST ──
+let tt;
+function toast(msg,type=''){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.className='show '+(type==='err'?'err':'');
+  clearTimeout(tt); tt=setTimeout(()=>el.className='',2600);
+}
+
+// ── MODALS ──
+function openMdl(id){document.getElementById(id).classList.add('open');}
+function closeMdl(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.mbg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
+
+// ══════════════════════════════════════
+// SERVICES
+// ══════════════════════════════════════
+let svcs=[];
+function onCatChange(){
+  document.getElementById('newcat-row').style.display=
+    document.getElementById('s-cat').value==='__new__'?'grid':'none';
+}
+async function loadSvcs(){
+  const {data}=await db.from('services').select('*').order('sort_order',{ascending:true});
+  svcs=data||[]; renderSvcs();
+}
+function renderSvcs(){
+  const wrap=document.getElementById('svc-list');
+  document.getElementById('svc-cnt').textContent=svcs.length+' послуг';
+  if(!svcs.length){wrap.innerHTML='<div class="empty-st">Послуги ще не додані</div>';return;}
+  const cats=[],map={};
+  svcs.forEach(s=>{if(!map[s.category]){map[s.category]=[];cats.push(s.category);}map[s.category].push(s);});
+  wrap.innerHTML=cats.map(cat=>`
+    <div class="cat-block">
+      <div class="cat-hd"><div class="cat-nm">${cat}</div><div class="cat-ct">${map[cat].length}</div></div>
+      ${map[cat].map(s=>`
+        <div class="svc-row">
+          <div class="svc-name">${s.name}${s.description?`<small>${s.description}</small>`:''}</div>
+          <div class="svc-price">${s.price}<em>грн</em></div>
+          <label class="tog"><input type="checkbox" ${s.visible?'checked':''} onchange="togSvc('${s.id}',this.checked)"><span class="tsl"></span></label>
+          <div style="display:flex;gap:4px">
+            <button class="iBtn" onclick="editSvc('${s.id}')">✎</button>
+            <button class="iBtn r" onclick="delSvc('${s.id}')">✕</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+async function addSvc(){
+  const name=document.getElementById('s-name').value.trim();
+  let cat=document.getElementById('s-cat').value;
+  if(cat==='__new__') cat=document.getElementById('s-newcat').value.trim();
+  const price=document.getElementById('s-price').value.trim();
+  const desc=document.getElementById('s-desc').value.trim();
+  if(!name||!cat||!price){toast('Заповніть назву, категорію та ціну','err');return;}
+  const maxOrd=svcs.length?Math.max(...svcs.map(s=>s.sort_order||0)):0;
+  const {error}=await db.from('services').insert({name,category:cat,price,description:desc,visible:true,sort_order:maxOrd+1});
+  if(error){toast(error.message,'err');return;}
+  toast('Послугу додано ✦');
+  ['s-name','s-price','s-desc','s-newcat'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('s-cat').value='Манікюр';
+  document.getElementById('newcat-row').style.display='none';
+  loadSvcs();
+}
+async function togSvc(id,val){
+  await db.from('services').update({visible:val}).eq('id',id);
+  svcs=svcs.map(s=>s.id==id?{...s,visible:val}:s);
+  toast(val?'Видимо':'Сховано');
+}
+function editSvc(id){
+  const s=svcs.find(x=>x.id==id); if(!s)return;
+  document.getElementById('em-id').value=s.id;
+  document.getElementById('em-name').value=s.name;
+  document.getElementById('em-price').value=s.price;
+  document.getElementById('em-desc').value=s.description||'';
+  const sel=document.getElementById('em-cat');
+  if(![...sel.options].find(o=>o.value===s.category)) sel.add(new Option(s.category,s.category));
+  sel.value=s.category;
+  openMdl('svc-modal');
+}
+async function saveSvc(){
+  const id=document.getElementById('em-id').value;
+  const name=document.getElementById('em-name').value.trim();
+  const cat=document.getElementById('em-cat').value;
+  const price=document.getElementById('em-price').value.trim();
+  const desc=document.getElementById('em-desc').value.trim();
+  if(!name||!price){toast('Заповніть поля','err');return;}
+  await db.from('services').update({name,category:cat,price,description:desc}).eq('id',id);
+  toast('Збережено ✦'); closeMdl('svc-modal'); loadSvcs();
+}
+async function delSvc(id){
+  if(!confirm('Видалити послугу?'))return;
+  await db.from('services').delete().eq('id',id);
+  toast('Видалено'); loadSvcs();
+}
+
+// ══════════════════════════════════════
+// PORTFOLIO
+// ══════════════════════════════════════
+let folders=[],photos=[],activeFolder=null,uploadFile=null;
+
+async function loadFolders(){
+  const {data}=await db.from('portfolio_folders').select('*').order('sort_order',{ascending:true});
+  folders=data||[];
+  await renderFolders();
+  if(folders.length&&!activeFolder) openFolder(folders[0].id);
+}
+async function renderFolders(){
+  const list=document.getElementById('fl-list');
+  if(!folders.length){list.innerHTML='<div style="padding:8px 0;font-size:10px;color:var(--dim)">Папок ще немає</div>';return;}
+  const counts={};
+  await Promise.all(folders.map(async f=>{
+    const {count}=await db.from('portfolio').select('id',{count:'exact',head:true}).eq('folder_id',f.id);
+    counts[f.id]=count||0;
+  }));
+  list.innerHTML=folders.map(f=>`
+    <div class="fl-item ${f.id===activeFolder?'on':''}" onclick="openFolder('${f.id}')">
+      <span class="fl-ico">📁</span>
+      <div class="fl-info">
+        <div class="fl-name">${f.name}</div>
+        <div class="fl-cnt">${counts[f.id]} фото</div>
+      </div>
+      <div class="fl-acts">
+        <button class="iBtn" onclick="event.stopPropagation();renameFolder('${f.id}')">✎</button>
+        <button class="iBtn r" onclick="event.stopPropagation();deleteFolder('${f.id}')">✕</button>
+      </div>
+    </div>
+  `).join('');
+}
+async function openFolder(id){
+  activeFolder=id;
+  renderFolders();
+  const folder=folders.find(f=>f.id==id);
+  if(!folder)return;
+  document.getElementById('fc').innerHTML=`
+    <div class="fc-head">
+      <div><div class="fc-title">${folder.name}</div><div class="fc-sub">Перше фото — Featured. Вимикай щоб ховати.</div></div>
+      <button class="btn btn-g btn-sm" onclick="showUpForm()">+ Фото</button>
+    </div>
+    <div id="upform-wrap"></div>
+    <div id="photos-wrap"><div class="empty-st"><span class="spin"></span></div></div>
+  `;
+  const {data}=await db.from('portfolio').select('*').eq('folder_id',id).order('sort_order',{ascending:true});
+  photos=data||[]; renderPhotos();
+}
+function renderPhotos(){
+  const wrap=document.getElementById('photos-wrap');
+  if(!wrap)return;
+  if(!photos.length){wrap.innerHTML='<div class="fc-empty"><div class="fc-empty-ico">📷</div>Фото ще немає</div>';return;}
+  wrap.innerHTML=`<div class="ph-grid">${photos.map((p,i)=>`
+    <div class="ph-tile">
+      ${i===0?'<div class="ph-star">★</div>':''}
+      <img src="${p.image_url}" alt="${p.title}" loading="lazy">
+      ${!p.visible?'<div class="ph-hidden">👁</div>':''}
+      <div class="ph-bar">
+        <div class="ph-nm" title="${p.title}">${p.title}</div>
+        <div class="ph-acts">
+          <label class="tog" style="transform:scale(0.75);transform-origin:right">
+            <input type="checkbox" ${p.visible?'checked':''} onchange="togPhoto('${p.id}',this.checked)">
+            <span class="tsl"></span>
+          </label>
+          <button class="iBtn r" onclick="delPhoto('${p.id}','${p.storage_path||''}')">✕</button>
+        </div>
+      </div>
+    </div>
+  `).join('')}</div>`;
+}
+function showUpForm(){
+  const wrap=document.getElementById('upform-wrap');
+  if(!wrap)return;
+  wrap.innerHTML=`
+    <div class="upform">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <span style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold)">Нове фото</span>
+        <button class="iBtn r" onclick="document.getElementById('upform-wrap').innerHTML=''">✕</button>
+      </div>
+      <div class="upzone" id="upzone" onclick="document.getElementById('file-inp').click()">
+        <div class="upzone-ico">📷</div>
+        <div class="upzone-txt">Натисни або перетягни</div>
+        <div class="upzone-sub">JPG · PNG · WEBP · до 5MB</div>
+      </div>
+      <div id="uppreview" style="display:none;" class="uprow">
+        <img id="upimg" src=""><span id="upname" style="font-size:11px;color:var(--dim)"></span>
+      </div>
+      <div class="row r2" style="margin-top:8px;">
+        <div class="fg"><label>Назва</label><input type="text" id="up-title" placeholder="Квітковий дизайн"></div>
+        <div class="fg"><label>Тег</label><input type="text" id="up-tag" placeholder="Nail Art"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button class="btn btn-g" id="up-btn" style="display:none" onclick="uploadPhoto()">Завантажити</button>
+        <span id="up-prog" style="font-size:10px;color:var(--dim)"></span>
+      </div>
+    </div>
+  `;
+  const uz=document.getElementById('upzone');
+  uz.addEventListener('dragover',e=>{e.preventDefault();uz.classList.add('over');});
+  uz.addEventListener('dragleave',()=>uz.classList.remove('over'));
+  uz.addEventListener('drop',e=>{e.preventDefault();uz.classList.remove('over');handleFile(e.dataTransfer.files);});
+  document.getElementById('file-inp').onchange=function(){handleFile(this.files);};
+}
+function handleFile(files){
+  if(!files||!files[0])return;
+  uploadFile=files[0];
+  const r=new FileReader();
+  r.onload=e=>{
+    document.getElementById('upimg').src=e.target.result;
+    document.getElementById('upname').textContent=uploadFile.name;
+    document.getElementById('uppreview').style.display='flex';
+    document.getElementById('up-btn').style.display='inline-block';
+  };
+  r.readAsDataURL(uploadFile);
+}
+async function uploadPhoto(){
+  if(!uploadFile||!activeFolder)return;
+  const title=document.getElementById('up-title').value.trim()||'Робота';
+  const tag=document.getElementById('up-tag').value.trim();
+  const prog=document.getElementById('up-prog');
+  prog.innerHTML='<span class="spin"></span>Завантаження...';
+  const ext=uploadFile.name.split('.').pop();
+  const path=`portfolio/${activeFolder}/${Date.now()}.${ext}`;
+  const {error:ue}=await db.storage.from('portfolio-photos').upload(path,uploadFile,{cacheControl:'3600',upsert:false});
+  if(ue){toast('Помилка завантаження: '+ue.message,'err');prog.innerHTML='';return;}
+  const {data:ud}=db.storage.from('portfolio-photos').getPublicUrl(path);
+  const maxOrd=photos.length?Math.max(...photos.map(p=>p.sort_order||0)):0;
+  const {error:de}=await db.from('portfolio').insert({title,tag,image_url:ud.publicUrl,storage_path:path,folder_id:activeFolder,visible:true,sort_order:maxOrd+1});
+  if(de){toast('Помилка БД: '+de.message,'err');prog.innerHTML='';return;}
+  toast('Фото завантажено ✦');
+  document.getElementById('upform-wrap').innerHTML='';
+  uploadFile=null;
+  const {data}=await db.from('portfolio').select('*').eq('folder_id',activeFolder).order('sort_order',{ascending:true});
+  photos=data||[]; renderPhotos(); renderFolders();
+}
+async function togPhoto(id,val){
+  await db.from('portfolio').update({visible:val}).eq('id',id);
+  photos=photos.map(p=>p.id==id?{...p,visible:val}:p);
+  renderPhotos(); toast(val?'Видимо':'Сховано');
+}
+async function delPhoto(id,path){
+  if(!confirm('Видалити фото?'))return;
+  if(path) await db.storage.from('portfolio-photos').remove([path]);
+  await db.from('portfolio').delete().eq('id',id);
+  toast('Фото видалено');
+  const {data}=await db.from('portfolio').select('*').eq('folder_id',activeFolder).order('sort_order',{ascending:true});
+  photos=data||[]; renderPhotos(); renderFolders();
+}
+async function createFolder(){
+  const name=prompt('Назва папки (буде видно на сайті як вкладка):');
+  if(!name||!name.trim())return;
+  const maxOrd=folders.length?Math.max(...folders.map(f=>f.sort_order||0)):0;
+  const {data,error}=await db.from('portfolio_folders').insert({name:name.trim(),sort_order:maxOrd+1}).select().single();
+  if(error){toast('Помилка','err');return;}
+  toast('Папку створено ✦');
+  await loadFolders();
+  openFolder(data.id);
+}
+function renameFolder(id){
+  const f=folders.find(x=>x.id==id); if(!f)return;
+  document.getElementById('fm-id').value=f.id;
+  document.getElementById('fm-name').value=f.name;
+  openMdl('fl-modal');
+}
+async function saveFolder(){
+  const id=document.getElementById('fm-id').value;
+  const name=document.getElementById('fm-name').value.trim();
+  if(!name){toast('Введіть назву','err');return;}
+  await db.from('portfolio_folders').update({name}).eq('id',id);
+  toast('Перейменовано ✦'); closeMdl('fl-modal');
+  await loadFolders();
+  if(activeFolder==id) openFolder(id);
+}
+async function deleteFolder(id){
+  const {count}=await db.from('portfolio').select('id',{count:'exact',head:true}).eq('folder_id',id);
+  if(count>0){toast('Спочатку видали всі фото з папки','err');return;}
+  if(!confirm('Видалити папку?'))return;
+  await db.from('portfolio_folders').delete().eq('id',id);
+  toast('Папку видалено');
+  if(activeFolder==id){
+    activeFolder=null;
+    document.getElementById('fc').innerHTML='<div class="fc-empty"><div class="fc-empty-ico">📁</div>Вибери папку зліва</div>';
+  }
+  loadFolders();
+}
+
+// ══════════════════════════════════════
+// CONTACTS
+// ══════════════════════════════════════
+async function loadContacts(){
+  const {data}=await db.from('contacts').select('*');
+  if(!data)return;
+  const m={};
+  data.forEach(r=>m[r.key]=r.value);
+  const map={telegram:'c-tg',instagram:'c-ig',phone:'c-phone',address:'c-addr'};
+  Object.entries(map).forEach(([k,id])=>{if(m[k])document.getElementById(id).value=m[k];});
+  updateAllPreviews(m);
+}
+function updateAllPreviews(m){
+  if(m.telegram){document.getElementById('pv-tg').textContent='@'+m.telegram.replace('@','');}
+  if(m.instagram){document.getElementById('pv-ig').textContent='@'+m.instagram.replace('@','');}
+  if(m.phone){document.getElementById('pv-phone').textContent=m.phone;}
+  if(m.address){document.getElementById('pv-addr').textContent=m.address;}
+}
+async function saveContact(key,inputId){
+  const value=document.getElementById(inputId).value.trim();
+  if(!value){toast('Введіть значення','err');return;}
+
+  // Check if exists first, then insert or update
+  const {data:existing}=await db.from('contacts').select('key').eq('key',key).maybeSingle();
+  let error;
+  if(existing){
+    const res=await db.from('contacts').update({value:value}).eq('key',key);
+    error=res.error;
+  } else {
+    const res=await db.from('contacts').insert({key:key,value:value});
+    error=res.error;
+  }
+  if(error){toast('Помилка: '+error.message,'err');return;}
+
+  // update preview
+  const pvMap={telegram:'pv-tg',instagram:'pv-ig',phone:'pv-phone',address:'pv-addr'};
+  const pv=document.getElementById(pvMap[key]);
+  if(pv) pv.textContent=(key==='phone'||key==='address')?value:'@'+value.replace('@','');
+  toast('Збережено ✦');
+}
+// Live preview
+['c-tg','c-ig','c-phone','c-addr'].forEach((id,i)=>{
+  const keys=['telegram','instagram','phone','address'];
+  const pvIds=['pv-tg','pv-ig','pv-phone','pv-addr'];
+  document.getElementById(id).addEventListener('input',function(){
+    const pv=document.getElementById(pvIds[i]);
+    if(pv) pv.textContent=(i>=2)?this.value:'@'+this.value.replace('@','');
+  });
+});
+</script>
+</body>
+</html>
